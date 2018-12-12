@@ -1,0 +1,22 @@
+{
+    "name": "jeurboy/line-sdk",
+    "description": "Line SDK for PHP.",
+    "authors": [
+      {
+        "name": "Pornprasith Mahasith",
+        "email": "jeurboy@hotmail.com"
+      }
+    ],
+    "require-dev": {
+      "friendsofphp/php-cs-fixer": "*"
+    },
+    "require": {
+        "php": "^7.0",
+        "guzzlehttp/guzzle": ">=6.2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jeurboy\\LineSdk\\": "src/"
+        }
+    }
+}
