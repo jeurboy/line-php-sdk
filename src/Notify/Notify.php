@@ -8,7 +8,7 @@ use \Jeurboy\LineSdk\Message\Text as TextMessage;
 
 class Notify
 {
-    const API_URL = 'https://notify-api.line.me/api/notify';
+    const NOTIFY_API_URL = 'https://notify-api.line.me/api/notify';
 
     /** @var accessToken Notify access token to access Line's notify api*/
     protected $accessToken;
@@ -62,7 +62,7 @@ class Notify
     public function send(MessageInterface $message) : bool
     {
         if ($message instanceof TextMessage) {
-            $response = $this->sendTextMessage($message);
+            $response = $this->sendMessage($message->getMessage());
         }
 
         if ($response === true) {
@@ -75,23 +75,23 @@ class Notify
     /**
      * Method to handle text type message
      *
-     * @param TextMessage $message an object of TextMessage
+     * @param string $message
      *
      * @return bool status of sending to notify API
      */
-    protected function sendTextMessage(TextMessage $message) : bool
+    protected function sendMessage(string $message) : bool
     {
         $requestParams = $this->getRequestParam();
 
         $requestParams['multipart'] = [
             [
                 'name' => 'message',
-                'contents' => $message->getMessage()
+                'contents' => $message
             ]
         ];
 
         try {
-            $response = $this->httpClient->request('POST', Notify::API_URL, $requestParams);
+            $response = $this->httpClient->request('POST', Notify::NOTIFY_API_URL, $requestParams);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             $this->errorMessage = $e->getResponse()->getReasonPhrase();
 
