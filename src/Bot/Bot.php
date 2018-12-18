@@ -14,6 +14,9 @@ class Bot
     /** @var channelSecret channelSecret to access Line's messaging api*/
     protected $channelSecret;
 
+    /** @var errorMessage */
+    protected $errorMessage = "";
+
     /** @var bot Line's bot api */
     /** @type \LINE\LINEBot */
     protected $bot;
@@ -47,6 +50,16 @@ class Bot
     }
 
     /**
+     * Method to get error message after send method was execute
+     *
+     * @return string error message
+     */
+    public function getErrorMessage() : string
+    {
+        return $this->errorMessage;
+    }
+
+    /**
      * Method to handle text type message
      *
      * @param string $message
@@ -60,6 +73,8 @@ class Bot
         if ($response->isSucceeded()) {
             return true;
         }
+
+        $this->errorMessage = $response->getJSONDecodedBody()['message'];
 
         return false;
     }

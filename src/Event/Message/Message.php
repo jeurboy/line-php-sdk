@@ -18,10 +18,13 @@ abstract class Message implements EventMessageInterface
      *     switch ($event->getType()) {
      *          case 'Text':
      *              $line_text->setMessage('Test reply : '.$event->getMessage());
-     *              $line_bot->send($event->getReplyToken(), $line_text);
+     *              $response = $line_bot->send($event->getReplyToken(), $line_text);
      *          break;
-     *
      *      }
+     *
+     *     if ($response !== true) {
+     *         echo $line_bot->getErrorMessage()."\n";
+     *     }
      * }
      *
      * </code>
